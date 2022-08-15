@@ -20,18 +20,18 @@ Update-SessionEnvironment
 # create the configuration file.
 # see https://git.zx2c4.com/wireguard-windows/tree/
 $nodeName = $env:COMPUTERNAME.ToLowerInvariant()
-$etcPath = 'C:\ProgramData\WireGuard'
-$configPath = "$etcPath\wg0.conf"
-if (Test-Path $etcPath) {
-    Remove-Item -Recurse -Force $etcPath
+$dataPath = "$env:ProgramFiles\WireGuard\Data"
+$configurationsPath = "$dataPath\Configurations"
+$configPath = "$configurationsPath\wg0.conf"
+if (Test-Path $dataPath) {
+    Remove-Item -Recurse -Force $dataPath
 }
-mkdir $etcPath | Out-Null
-Disable-CAclInheritance $etcPath
-Grant-CPermission $etcPath Administrators FullControl
-Grant-CPermission $etcPath $env:USERNAME FullControl
-$keyPath = "$etcPath\$nodeName.key"
+mkdir $dataPath | Out-Null
+Disable-CAclInheritance $dataPath
+Grant-CPermission $dataPath SYSTEM FullControl
+Grant-CPermission $dataPath Administrators FullControl
+mkdir $configurationsPath | Out-Null
 $key = wg genkey
-Set-Content -Encoding ascii -NoNewline -Path $keyPath -Value $key
 Set-Content -Encoding ascii -NoNewline -Path $configPath -Value @"
 [Interface]
 PrivateKey = $key
@@ -53,12 +53,12 @@ AllowedIPs = $vpnIpAddress/32
 
 "@
 
-# delete the keypair.
-Remove-Item $keyPath
-
 # apply the configuration.
 # NB this will create the WireGuardTunnel$wg0 service (which in turn
 #    installs/configures the wireguard kernel driver).
+# NB when you manually start the wireguard gui application, it will replace
+#    this $configPath file with the $configPath.dpapi file as explained in:
+#       https://github.com/WireGuard/wireguard-windows/blob/master/docs/enterprise.md
 wireguard /installtunnelservice $configPath | Out-String -Stream
 if ($LASTEXITCODE) {
     throw "failed to install the WireGuardTunnel`$wg0 service with exit code $LASTEXITCODE"
