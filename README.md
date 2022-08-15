@@ -2,6 +2,8 @@
 
 Install the base [ubuntu 20.04 vagrant box](https://github.com/rgl/ubuntu-vagrant).
 
+Install the base [windows 2019 vagrant box](https://github.com/rgl/windows-vagrant).
+
 Launch the environment:
 
 ```bash
@@ -26,6 +28,14 @@ AllowedIPs = 10.2.0.100/32
 PublicKey = 7S2H6RphXcDLyalL1T/b5Pxmr53137ZmccVRGdgPQDw=
 Endpoint = 192.168.53.101:51820
 AllowedIPs = 10.2.0.101/32
+```
+
+Ping a machine from `node0`:
+
+```bash
+vagrant ssh node0
+ping     10.2.0.101 # to wireguard interface.
+ping 192.168.53.101 # to non-wireguard interface.
 ```
 
 ## References
