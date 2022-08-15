@@ -14,18 +14,18 @@ all the other machines as peers, e.g., `/etc/wireguard/wg0.conf` will be:
 ```plain
 [Interface]
 PrivateKey = +Ps5ijDqZxUtJgXvojG1fMsO6wL3SJixj9s5Glaud3U=
-Address = 10.2.0.101/24
+Address = 10.2.0.100/24
 ListenPort = 51820
 
 [Peer]
 PublicKey = vv0x1c4a93XT0MYhHDHGsxJ2ZZq3uxHugKqj+pa83i0=
-Endpoint = 192.168.53.101:51820
-AllowedIPs = 10.2.0.101/32
+Endpoint = 192.168.53.100:51820
+AllowedIPs = 10.2.0.100/32
 
 [Peer]
 PublicKey = 7S2H6RphXcDLyalL1T/b5Pxmr53137ZmccVRGdgPQDw=
-Endpoint = 192.168.53.102:51820
-AllowedIPs = 10.2.0.102/32
+Endpoint = 192.168.53.101:51820
+AllowedIPs = 10.2.0.101/32
 ```
 
 ## References
