@@ -5,7 +5,7 @@ Install the base [ubuntu 20.04 vagrant box](https://github.com/rgl/ubuntu-vagran
 Launch the environment:
 
 ```bash
-time vagrant up --provider=libvirt # or --provider=virtualbox
+time vagrant up --provider=libvirt
 ```
 
 After the environment is up, each machine wireguard configuration will have

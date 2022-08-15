@@ -35,11 +35,6 @@ def define_ubuntu_node(config, name, fqdn, ip_address, vpn_ip_address)
       lv.keymap = 'pt'
       config.vm.synced_folder '.', '/vagrant', type: 'nfs', nfs_version: '4.2', nfs_udp: false
     end
-    config.vm.provider 'virtualbox' do |vb|
-      vb.linked_clone = true
-      vb.cpus = 2
-      vb.memory = 512
-    end
     config.vm.hostname = fqdn
     config.vm.network :private_network, ip: ip_address, libvirt__forward_mode: 'none', libvirt__dhcp_enabled: false
     config.vm.provision 'shell', path: 'provision-base.sh'
