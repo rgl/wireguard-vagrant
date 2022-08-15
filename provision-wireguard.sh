@@ -38,7 +38,7 @@ umask 022
 
 # save this peer configuration in the host.
 mkdir -p /vagrant/tmp
-cat >>"/vagrant/tmp/wg-peer-$(hostname).conf" <<EOF
+cat >"/vagrant/tmp/wg-peer-$(hostname).conf" <<EOF
 [Peer]
 PublicKey = $(wg pubkey <"$(hostname).key")
 Endpoint = $ip_address:51820
